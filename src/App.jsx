@@ -28,12 +28,18 @@ const App = () => {
 
       Allcolors.push({
         background: gradient,
-        css: gradient
+        css: gradient,
+        tail: `bg-[${gradient}]`
       });
     }
 
     setcolors(Allcolors);
   }, [inputVal, type]);
+
+
+  const handleClick = () => {
+    gradientColors()
+  }
 
 
   useEffect(() => {
@@ -43,15 +49,18 @@ const App = () => {
 
   return (
     <div className='md:w-9/12 m-auto'>
-      <div className='gap-2 flex-col sm:flex-row  min-h-16  flex justify-between items-center p-2'>
+      <div className='gap-2  flex-col md:flex-row  min-h-16 flex sm:justify-between items-center p-2'>
         <h1 className='text-3xl font-bold'>🎨 Color Gradient</h1>
-        <div className='space-x-2'>
-
+        <div className='flex gap-2 flex-wrap items-center justify-center'>
           <input
             value={inputVal}
             className='p-1 rounded w-24 border-2'
             onChange={(e) => {
-              setinputVal(Number(e.target.value))
+              const val = Number(e.target.value);
+              if (val <= 500) {
+                setinputVal(val)
+              }
+              // setinputVal(Number(e.target.value))
             }}
           />
           <select
@@ -65,6 +74,7 @@ const App = () => {
             <option value="linear">Linear</option>
             <option value="radial">Radial</option>
           </select>
+          <button onClick={handleClick} className='p-1 rounded w-24 border-2 bg-orange-400 text-white'>Generate</button>
         </div>
       </div>
       <div className='mt-8 gap-3 flex flex-wrap items-center justify-center'>
